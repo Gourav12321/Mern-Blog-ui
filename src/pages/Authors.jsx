@@ -3,24 +3,22 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import axios from 'axios'
 
-
 const Authors = () => {
 
   const [authors, setAuthors]=  useState([])
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(()=>{
-    const getAuthors = async () =>{
-      setIsLoading(true)
+    const getAuthors = async () => {
+      setIsLoading(true);
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
-        setAuthors(response?.data)
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
+        setAuthors(response.data);
       } catch (error) {
-        console.log(error)
+        console.error('Error fetching authors:', error.response ? error.response.data : error.message); // Log detailed error
       }
-      
-      setIsLoading(false)
-    }
+      setIsLoading(false);
+    };
 
     getAuthors();
   }, [])
